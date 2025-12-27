@@ -1,64 +1,114 @@
-# Praktikum Applied Machine Learning
+<div align="center">
 
-**Kode Mata Kuliah:** CW6552021547  
-**Semester:** V (Lima)  
-**SKS:** 3 SKS  
-**Program Studi:** Informatika  
-**Fakultas:** Teknik  
-**Universitas:** Universitas Muhammadiyah Makassar
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Latest-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![License](https://img.shields.io/badge/License-Educational-green?style=for-the-badge)
+
+# 🤖 Praktikum Applied Machine Learning
+
+### *Membangun Fondasi AI dengan Pendekatan Hands-On*
+
+**Laboratorium Informatika**  
+**Fakultas Teknik - Universitas Muhammadiyah Makassar**
+
+---
+
+[![Made with ❤️ by devnolife](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-devnolife-red?style=flat-square)](https://github.com/devnolife)
+
+</div>
+
+---
+
+## 📋 Informasi Mata Kuliah
+
+| Atribut | Detail |
+|---------|--------|
+| **Kode Mata Kuliah** | `CW6552021547` |
+| **Semester** | V (Lima) |
+| **SKS** | 3 SKS |
+| **Program Studi** | Informatika |
+| **Fakultas** | Teknik |
+| **Universitas** | Universitas Muhammadiyah Makassar |
 
 ---
 
 ## 📘 Deskripsi
 
-Repositori ini berisi materi praktikum Applied Machine Learning yang mencakup prinsip-prinsip inti dan aplikasi dari supervised learning, unsupervised learning, dan reinforcement learning. Mahasiswa akan menggunakan pustaka Python standar industri seperti scikit-learn untuk memecahkan masalah dunia nyata.
+> Repositori ini berisi materi praktikum **Applied Machine Learning** yang dirancang untuk memberikan pemahaman mendalam tentang prinsip-prinsip inti dan aplikasi dari *supervised learning*, *unsupervised learning*, dan *reinforcement learning*. Mahasiswa akan menggunakan pustaka Python standar industri seperti **scikit-learn** untuk memecahkan masalah dunia nyata.
 
 ## 🎯 Capaian Pembelajaran
 
-Setelah menyelesaikan mata kuliah ini, mahasiswa diharapkan mampu:
+<table>
+<tr>
+<td>
 
-1. Memahami dan mengimplementasikan algoritma supervised learning (regresi, klasifikasi)
-2. Menguasai teknik unsupervised learning (clustering, dimensionality reduction)
-3. Mampu menerapkan reinforcement learning untuk problem-solving
-4. Menggunakan scikit-learn dan library Python untuk machine learning
-5. Melakukan evaluasi model dan optimasi hyperparameter
+| No | Capaian |
+|----|---------|
+| 1 | Memahami dan mengimplementasikan algoritma **supervised learning** (regresi, klasifikasi) |
+| 2 | Menguasai teknik **unsupervised learning** (clustering, dimensionality reduction) |
+| 3 | Mampu menerapkan **reinforcement learning** untuk problem-solving |
+| 4 | Menggunakan **scikit-learn** dan library Python untuk machine learning |
+| 5 | Melakukan **evaluasi model** dan optimasi hyperparameter |
 
-## 📚 Struktur Materi
+</td>
+</tr>
+</table>
 
-Repositori ini mencakup materi untuk **8 pertemuan pertama** (sampai UTS):
+## 📚 Roadmap Pembelajaran
 
-| Pertemuan | Topik | Materi Utama |
-|-----------|-------|--------------|
-| [01](./pertemuan-01) | **Python untuk ML & Setup Environment** | Install tools, NumPy, Pandas, Matplotlib, Jupyter Notebook |
-| [02](./pertemuan-02) | **Data Preprocessing & EDA** | Cleaning, normalisasi, visualisasi, handling missing values & outliers |
-| [03](./pertemuan-03) | **Linear & Polynomial Regression** | Simple/Multiple Linear Regression, prediksi harga rumah |
-| [04](./pertemuan-04) | **Classification** | Logistic Regression, Decision Tree, klasifikasi dataset Iris |
-| [05](./pertemuan-05) | **Support Vector Machine** | SVM dengan kernel tricks, parameter tuning |
-| [06](./pertemuan-06) | **Ensemble Methods** | Random Forest, Gradient Boosting, prediksi churn |
-| [07](./pertemuan-07) | **Clustering** | K-Means, Hierarchical Clustering, segmentasi pelanggan |
-| [08](./pertemuan-08) | **UTS: Mid-semester Project** | Mini project ML end-to-end |
+> Materi dirancang untuk **8 pertemuan** dengan pendekatan *progressive learning*
 
-## 🚀 Getting Started
+```mermaid
+graph LR
+    A[📦 Setup] --> B[🔍 EDA]
+    B --> C[📈 Regression]
+    C --> D[🏷️ Classification]
+    D --> E[🎯 SVM]
+    E --> F[🌲 Ensemble]
+    F --> G[📊 Clustering]
+    G --> H[🏆 Project]
+```
+
+| Pertemuan | Topik | Materi Utama | Status |
+|:---------:|-------|--------------|:------:|
+| **01** | [Python untuk ML & Setup Environment](./pertemuan-01) | Install tools, NumPy, Pandas, Matplotlib, Jupyter Notebook | 🟢 |
+| **02** | [Data Preprocessing & EDA](./pertemuan-02) | Cleaning, normalisasi, visualisasi, handling missing values & outliers | 🟢 |
+| **03** | [Linear & Polynomial Regression](./pertemuan-03) | Simple/Multiple Linear Regression, prediksi harga rumah | 🟢 |
+| **04** | [Classification](./pertemuan-04) | Logistic Regression, Decision Tree, klasifikasi dataset Iris | 🟢 |
+| **05** | [Support Vector Machine](./pertemuan-05) | SVM dengan kernel tricks, parameter tuning | 🟢 |
+| **06** | [Ensemble Methods](./pertemuan-06) | Random Forest, Gradient Boosting, prediksi churn | 🟢 |
+| **07** | [Clustering](./pertemuan-07) | K-Means, Hierarchical Clustering, segmentasi pelanggan | 🟢 |
+| **08** | [UTS: Mid-semester Project](./pertemuan-08) | Mini project ML end-to-end | 🎯 |
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-Pastikan Anda telah menginstall:
-- Python 3.8 atau lebih baru
-- Anaconda atau Miniconda (recommended)
-- Jupyter Notebook atau JupyterLab
-- Git (untuk clone repository)
+<details>
+<summary>📋 Klik untuk melihat requirements</summary>
+
+- ✅ Python 3.8 atau lebih baru
+- ✅ Anaconda atau Miniconda (recommended)
+- ✅ Jupyter Notebook atau JupyterLab
+- ✅ Git (untuk clone repository)
+
+</details>
 
 ### Installation
 
-1. **Clone repository:**
+<details>
+<summary>🔧 Step-by-step Installation</summary>
+
+**1️⃣ Clone repository:**
 ```bash
-git clone https://github.com/[your-username]/ml-practicum.git
+git clone https://github.com/devnolife/ml-practicum.git
 cd ml-practicum
 ```
 
-2. **Buat virtual environment:**
+**2️⃣ Buat virtual environment:**
 ```bash
-# Menggunakan conda
+# Menggunakan conda (recommended)
 conda create -n ml-practicum python=3.10
 conda activate ml-practicum
 
@@ -68,188 +118,267 @@ source ml-env/bin/activate  # Linux/Mac
 ml-env\Scripts\activate     # Windows
 ```
 
-3. **Install dependencies:**
+**3️⃣ Install dependencies:**
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn jupyter notebook
 ```
 
-4. **Jalankan Jupyter Notebook:**
+**4️⃣ Jalankan Jupyter Notebook:**
 ```bash
 jupyter notebook
 ```
 
-### Alternatif: Google Colab
+</details>
 
-Jika tidak ingin install di local, Anda bisa menggunakan [Google Colab](https://colab.research.google.com/):
-1. Upload notebook ke Google Drive
-2. Buka dengan Google Colab
-3. Install library yang diperlukan di cell pertama:
+### ☁️ Alternatif: Google Colab
+
+> Tidak ingin install di local? Gunakan [Google Colab](https://colab.research.google.com/)!
+
 ```python
+# Install library yang diperlukan di cell pertama
 !pip install scikit-learn matplotlib seaborn
 ```
 
-## 📖 Cara Menggunakan Repository
+---
 
-### Untuk Setiap Pertemuan:
+## 📖 Panduan Penggunaan
 
-1. **Baca README.md** di folder pertemuan untuk memahami:
-   - Tujuan pembelajaran
-   - Teori singkat
-   - Step-by-step praktikum
-
-2. **Ikuti Tutorial** yang ada di README.md:
-   - Copy-paste code ke Jupyter Notebook
-   - Run dan pahami hasilnya
-   - Experiment dengan parameter berbeda
-
-3. **Kerjakan Tugas** yang ada di bagian akhir README:
-   - Setiap tugas memiliki bobot nilai
-   - Kerjakan di notebook terpisah
-   - Submit sesuai instruksi
-
-### Struktur Folder:
+### Workflow Setiap Pertemuan
 
 ```
-ml-practicum/
-├── README.md                    # File ini
-├── pertemuan-01/
-│   ├── README.md               # Materi & tugas pertemuan 1
-│   └── [your_work].ipynb       # Notebook hasil praktikum Anda
-├── pertemuan-02/
-│   ├── README.md
-│   └── [your_work].ipynb
-├── ...
-└── pertemuan-08/
-    └── README.md               # Guideline UTS
+📖 Baca README.md → 💻 Ikuti Tutorial → 🧪 Experiment → ✅ Kerjakan Tugas
 ```
 
-## 💻 Teknologi yang Digunakan
+### Struktur Repository
 
-- **Python 3.10+**: Bahasa pemrograman utama
-- **NumPy**: Komputasi numerik
-- **Pandas**: Data manipulation dan analysis
-- **Matplotlib & Seaborn**: Data visualization
-- **Scikit-learn**: Machine learning algorithms
-- **Jupyter Notebook**: Interactive development environment
+```
+📁 ml-practicum/
+├── 📄 README.md                    # Dokumentasi utama
+├── 📁 pertemuan-01/
+│   ├── 📄 README.md               # Materi & tugas
+│   └── 📓 [your_work].ipynb       # Notebook praktikum
+├── 📁 pertemuan-02/
+│   └── ...
+└── 📁 pertemuan-08/
+    └── 📄 README.md               # Guideline UTS
+```
+
+---
+
+## 💻 Tech Stack
+
+<div align="center">
+
+| Technology | Purpose | Version |
+|:----------:|---------|:-------:|
+| ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) | Bahasa pemrograman utama | 3.10+ |
+| ![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white) | Komputasi numerik | Latest |
+| ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white) | Data manipulation | Latest |
+| ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat-square&logo=python&logoColor=white) | Visualisasi data | Latest |
+| ![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?style=flat-square&logo=python&logoColor=white) | Statistical visualization | Latest |
+| ![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white) | Machine learning | Latest |
+| ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white) | Interactive development | Latest |
+
+</div>
+
+---
 
 ## 📊 Sistem Penilaian
 
-| Komponen | Bobot |
-|----------|-------|
-| Kehadiran & Partisipasi | 10% |
-| Tugas Mingguan (Weekly Labs) | 30% |
-| UTS (Mid-term Project) | 25% |
-| UAS (Final Project & Presentation) | 35% |
-| **TOTAL** | **100%** |
+<div align="center">
 
-### Kriteria Kelulusan:
-- Nilai akhir minimal: **60 (D)**
-- Kehadiran minimal: **75%** dari total pertemuan
-- Mengumpulkan minimal **75%** dari total tugas
-- Mengikuti UTS dan UAS
+```
+┌─────────────────────────────────────────────────────────┐
+│                    DISTRIBUSI NILAI                      │
+├─────────────────────────────────────────────────────────┤
+│  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  10% Kehadiran │
+│  ██████████████████████████░░░░░░░░░░░░░  30% Tugas     │
+│  ████████████████████░░░░░░░░░░░░░░░░░░░  25% UTS       │
+│  ██████████████████████████████░░░░░░░░░  35% UAS       │
+└─────────────────────────────────────────────────────────┘
+```
+
+</div>
+
+| Komponen | Bobot | Keterangan |
+|----------|:-----:|------------|
+| 📋 Kehadiran & Partisipasi | 10% | Minimal kehadiran 75% |
+| 📝 Tugas Mingguan | 30% | Weekly Labs |
+| 📊 UTS | 25% | Mid-term Project |
+| 🎯 UAS | 35% | Final Project & Presentation |
+
+### ✅ Kriteria Kelulusan
+
+- [x] Nilai akhir minimal: **60 (D)**
+- [x] Kehadiran minimal: **75%** dari total pertemuan
+- [x] Mengumpulkan minimal **75%** dari total tugas
+- [x] Mengikuti UTS dan UAS
+
+---
 
 ## 📝 Submission Guidelines
 
-### Format File:
-```
-NIM_Nama_PertemuanXX.ipynb
-NIM_Nama_PertemuanXX.pdf
-```
+### Format Penamaan File
 
-Contoh: `105841101521_JohnDoe_Pertemuan01.pdf`
+```
+📄 NIM_Nama_PertemuanXX.ipynb
+📄 NIM_Nama_PertemuanXX.pdf
+```
+> Contoh: `105841101521_JohnDoe_Pertemuan01.pdf`
 
-### Checklist Sebelum Submit:
-- [ ] Semua cell sudah di-run dan ada output
-- [ ] Code rapi dan ada komentar
-- [ ] Ada interpretasi untuk setiap hasil
-- [ ] Visualisasi jelas dan labeled
-- [ ] File naming sesuai format
+### ✅ Checklist Sebelum Submit
+
+- [ ] ✓ Semua cell sudah di-run dan ada output
+- [ ] ✓ Code rapi dan ada komentar
+- [ ] ✓ Ada interpretasi untuk setiap hasil
+- [ ] ✓ Visualisasi jelas dan labeled
+- [ ] ✓ File naming sesuai format
+
+---
 
 ## 🔧 Troubleshooting
 
-### Error saat import library:
+<details>
+<summary>❌ Error saat import library</summary>
+
 ```bash
 pip install --upgrade [nama-library]
 ```
 
-### Jupyter Notebook tidak muncul:
+</details>
+
+<details>
+<summary>❌ Jupyter Notebook tidak muncul</summary>
+
 ```bash
 pip install --upgrade jupyter notebook
 jupyter notebook --version
 ```
 
-### Memory error saat train model:
+</details>
+
+<details>
+<summary>❌ Memory error saat train model</summary>
+
 - Reduce dataset size
 - Use `n_jobs=-1` untuk parallel processing
 - Close aplikasi lain yang tidak digunakan
 
+</details>
+
+---
+
 ## 📚 Referensi & Resources
 
-### Documentation:
-- [Scikit-learn Documentation](https://scikit-learn.org/stable/)
-- [Pandas Documentation](https://pandas.pydata.org/docs/)
-- [NumPy Documentation](https://numpy.org/doc/)
-- [Matplotlib Documentation](https://matplotlib.org/stable/contents.html)
+<details>
+<summary>📖 Official Documentation</summary>
 
-### Learning Resources:
+| Library | Link |
+|---------|------|
+| Scikit-learn | [scikit-learn.org](https://scikit-learn.org/stable/) |
+| Pandas | [pandas.pydata.org](https://pandas.pydata.org/docs/) |
+| NumPy | [numpy.org](https://numpy.org/doc/) |
+| Matplotlib | [matplotlib.org](https://matplotlib.org/stable/contents.html) |
+
+</details>
+
+<details>
+<summary>🎓 Learning Resources</summary>
+
 - [Kaggle Learn](https://www.kaggle.com/learn)
 - [Machine Learning Crash Course - Google](https://developers.google.com/machine-learning/crash-course)
 - [Scikit-learn Tutorials](https://scikit-learn.org/stable/tutorial/index.html)
 
-### Datasets:
+</details>
+
+<details>
+<summary>📊 Datasets</summary>
+
 - [Kaggle Datasets](https://www.kaggle.com/datasets)
 - [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml)
 - [Scikit-learn Built-in Datasets](https://scikit-learn.org/stable/datasets.html)
 
-## 👥 Kontributor
-
-**Dosen Pengampu:**  
-[Nama Dosen]
-
-**Asisten Praktikum:**  
-[Nama Asisten 1]  
-[Nama Asisten 2]
-
-## 📧 Kontak & Support
-
-- **Email:** [email dosen/asisten]
-- **Forum Diskusi:** [link ke forum kelas]
-- **Office Hours:** [jadwal konsultasi]
-
-## 📄 Lisensi
-
-Materi ini dibuat untuk keperluan pendidikan di Universitas Muhammadiyah Makassar.
+</details>
 
 ---
 
-## 🎓 Tips Sukses
+## 👥 Tim Pengembang
 
-1. **Konsisten:** Kerjakan praktikum setiap minggu, jangan ditumpuk
-2. **Praktek:** Machine learning adalah skill yang butuh banyak praktek
-3. **Experiment:** Jangan takut untuk coba parameter berbeda
-4. **Dokumentasi:** Selalu tulis penjelasan untuk code Anda
-5. **Bertanya:** Jika stuck, tanya di forum atau saat konsultasi
-6. **Collaborate:** Diskusi dengan teman, tapi jangan plagiat
-7. **Real World:** Cari dataset yang Anda minati untuk project
+<div align="center">
+
+### 🏛️ Laboratorium Informatika
+**Fakultas Teknik - Universitas Muhammadiyah Makassar**
+
+---
+
+| Role | Nama |
+|------|------|
+| 👨‍💻 **Developer & Maintainer** | [@devnolife](https://github.com/devnolife) |
+| 👨‍🏫 **Dosen Pengampu** | [Nama Dosen] |
+| 👨‍🔬 **Asisten Praktikum** | [Nama Asisten] |
+
+</div>
+
+---
+
+## 💡 Tips Sukses
+
+<div align="center">
+
+| 💪 | Tips |
+|:--:|------|
+| 1️⃣ | **Konsisten** - Kerjakan praktikum setiap minggu |
+| 2️⃣ | **Praktek** - ML butuh banyak hands-on |
+| 3️⃣ | **Experiment** - Coba parameter berbeda |
+| 4️⃣ | **Dokumentasi** - Tulis penjelasan untuk code |
+| 5️⃣ | **Bertanya** - Jangan malu untuk diskusi |
+| 6️⃣ | **Collaborate** - Belajar bersama, tapi jangan plagiat |
+| 7️⃣ | **Real World** - Cari dataset yang menarik |
+
+</div>
 
 ---
 
 ## ⚠️ Catatan Penting
 
-- Pastikan selalu **backup** pekerjaan Anda
-- **Deadline** adalah hard deadline
-- **Plagiarism** akan mendapat sanksi sesuai aturan universitas
-- Materi ini akan **terus diupdate**, pastikan pull latest changes
+> [!WARNING]
+> - Pastikan selalu **backup** pekerjaan Anda
+> - **Deadline** adalah hard deadline
+> - **Plagiarism** akan mendapat sanksi sesuai aturan universitas
+> - Materi akan **terus diupdate**, pastikan pull latest changes
 
 ---
 
+<div align="center">
+
 ## 🚀 Let's Start Learning!
 
-Mulai dari [Pertemuan 01](./pertemuan-01) dan ikuti step-by-step tutorial.
+Mulai dari [**Pertemuan 01**](./pertemuan-01) dan ikuti step-by-step tutorial.
 
 **Happy Learning & Coding! 🎉**
 
 ---
 
-**Last Updated:** December 2024  
-**Version:** 1.0
+### 📧 Kontak & Support
+
+[![GitHub](https://img.shields.io/badge/GitHub-devnolife-181717?style=for-the-badge&logo=github)](https://github.com/devnolife)
+[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:devnolife@gmail.com)
+
+---
+
+<sub>
+
+**Laboratorium Informatika - Fakultas Teknik**  
+**Universitas Muhammadiyah Makassar**  
+
+---
+
+![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer)
+
+**Last Updated:** December 2024 | **Version:** 2.0
+
+Made with ❤️ by [devnolife](https://github.com/devnolife)
+
+</sub>
+
+</div>
