@@ -375,7 +375,7 @@ Mulai dari [**Pertemuan 01**](./pertemuan-01) dan ikuti step-by-step tutorial.
 
 ![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer)
 
-**Last Updated:** December 2024 | **Version:** 2.0
+**Last Updated:** December 2025 | **Version:** 2.0
 
 Made with ❤️ by [devnolife](https://github.com/devnolife)
 
