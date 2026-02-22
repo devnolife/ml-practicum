@@ -68,6 +68,17 @@ Contoh: data yang membentuk lingkaran (XOR problem)
 
 ### Persiapan: Import Library
 
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Import library untuk Support Vector Machine (SVM) classification
+> - **Kapan digunakan**: Untuk classification tasks dengan decision boundary yang complex
+> - **Penjelasan Library**:
+>   - `SVC` (Support Vector Classifier): Main SVM implementation di scikit-learn
+>   - `GridSearchCV`: Automated hyperparameter tuning (coba banyak kombinasi parameter)
+>   - `StandardScaler`: WAJIB untuk SVM! SVM sangat sensitive terhadap feature scale
+>   - `make_circles, make_moons`: Generate non-linear synthetic datasets
+>   - `load_breast_cancer`: Real-world medical dataset untuk cancer diagnosis
+> - **Note**: SVM without proper scaling bisa gagal total!
+
 ```python
 import numpy as np
 import pandas as pd
@@ -85,6 +96,21 @@ plt.rcParams['figure.figsize'] = (12, 8)
 ```
 
 ### Langkah 1: Linear SVM
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Classify data yang linearly separable menggunakan Linear SVM
+> - **Kapan digunakan**: Data yang bisa dipisahkan dengan garis/bidang lurus, fast training
+> - **Penjelasan Kode**:
+>   - `make_classification(class_sep=2)`: Generate data dengan separation yang jelas antara classes
+>   - `SVC(kernel='linear')`: Linear kernel - cari hyperplane (garis/bidang) pemisah terbaik
+>   - `C=1.0`: Regularization parameter (default)
+>     - C kecil: margin lebar, toleran terhadap misclassification (soft margin)
+>     - C besar: margin sempit, strict classification (hard margin)
+> - **Cara Kerja SVM**:
+>   1. Cari hyperplane yang maksimalkan margin (jarak ke data points terdekat)
+>   2. Support vectors: data points yang berada di margin boundary
+>   3. Hanya support vectors yang influence decision boundary!
+> - **Keuntungan Linear SVM**: Fast, works well untuk high-dimensional data (text classification)
 
 ```python
 # Generate linearly separable data

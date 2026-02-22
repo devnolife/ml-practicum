@@ -1,154 +1,115 @@
-# Pertemuan 3: Linear Regression dan Polynomial Regression
+# Pertemuan 3: Prediksi dengan Linear Regression
 
 ## 🎯 Tujuan Pembelajaran
 
-Setelah menyelesaikan pertemuan ini, mahasiswa diharapkan mampu:
-1. Memahami konsep dan teori Linear Regression
-2. Mengimplementasikan Linear Regression dengan scikit-learn
-3. Memahami perbedaan Simple vs Multiple Linear Regression
-4. Mengimplementasikan Polynomial Regression
-5. Melakukan evaluasi model regresi dengan metrik yang tepat
-6. Memahami konsep overfitting dan underfitting
+Setelah pertemuan ini, kamu bisa:
+1. Membuat model prediksi sederhana (Linear Regression)
+2. Prediksi dengan banyak variabel (Multiple Regression)
+3. Menangani data non-linear (Polynomial Regression)
+4. Menghitung akurasi model
 
-## 📚 Teori Singkat
+## 📚 Penjelasan Singkat
 
-### Linear Regression
+### Apa itu Linear Regression?
 
-Linear Regression adalah algoritma supervised learning untuk memprediksi nilai kontinu (continuous value). Model ini mencari hubungan linear antara fitur (X) dan target (y).
+Model untuk memprediksi angka (contoh: harga rumah, gaji, suhu).
 
-**Formula:**
+**Rumus sederhana:**
 ```
-y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ + ε
+y = a + bx
 
-di mana:
-- y: target variable (yang diprediksi)
-- β₀: intercept
-- β₁, β₂, ..., βₙ: coefficients
-- x₁, x₂, ..., xₙ: features
-- ε: error term
+Contoh: Harga Rumah = 50juta + (10juta × Luas)
 ```
 
-**Simple Linear Regression**: 1 fitur (x)
+**Multiple Regression**: Pakai banyak variabel
 ```
-y = β₀ + β₁x
-```
-
-**Multiple Linear Regression**: > 1 fitur
-```
-y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
+Harga = 50juta + (10juta × Luas) + (5juta × Kamar) - (2juta × Umur)
 ```
 
 ### Polynomial Regression
 
-Polynomial Regression adalah ekstensi dari Linear Regression yang dapat menangkap hubungan non-linear dengan menambahkan polynomial terms.
-
-**Formula (degree 2):**
+Untuk data yang tidak lurus (melengkung):
 ```
-y = β₀ + β₁x + β₂x²
+y = a + bx + cx²
 ```
 
-### Metrics Evaluasi
+### Cara Ukur Akurasi
 
-1. **MAE (Mean Absolute Error)**: Rata-rata absolute error
-   ```
-   MAE = (1/n) Σ|yᵢ - ŷᵢ|
-   ```
-
-2. **MSE (Mean Squared Error)**: Rata-rata squared error
-   ```
-   MSE = (1/n) Σ(yᵢ - ŷᵢ)²
-   ```
-
-3. **RMSE (Root Mean Squared Error)**: Akar dari MSE
-   ```
-   RMSE = √MSE
-   ```
-
-4. **R² Score**: Proporsi variance yang dijelaskan model (0-1, semakin tinggi semakin baik)
-   ```
-   R² = 1 - (SS_res / SS_tot)
-   ```
+- **R² Score**: 0-1, makin tinggi makin bagus (>0.7 = bagus)
+- **RMSE**: Rata-rata kesalahan prediksi (makin kecil makin bagus)
 
 ## 📝 Praktikum
 
-### Persiapan: Import Library
+### Persiapan
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Import library untuk regression modeling dan evaluation
+> - **Kapan digunakan**: Di awal project ML untuk prediksi nilai continuous
+> - **Penjelasan Library**:
+>   - `train_test_split`: Split data jadi training set dan testing set (untuk validasi model)
+>   - `LinearRegression`: Algoritma Linear Regression dari scikit-learn
+>   - `PolynomialFeatures`: Transform fitur menjadi polynomial (x, x², x³, dll)
+>   - `mean_squared_error, r2_score`: Metrics untuk evaluasi performa regression model
+> - **Note**: Selalu split data untuk cegah overfitting!
 
 ```python
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-
-# Setting
-sns.set_style('whitegrid')
-plt.rcParams['figure.figsize'] = (10, 6)
+from sklearn.metrics import mean_squared_error, r2_score
 ```
 
-### Langkah 1: Simple Linear Regression
+### Langkah 1: Simple Linear Regression (1 Variabel)
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Membuat model prediksi sederhana dengan 1 input variable (jam belajar) untuk predict 1 output (nilai)
+> - **Kapan digunakan**: Untuk hubungan linear sederhana antara 2 variabel (cause-effect relationship)
+> - **Penjelasan Kode**:
+>   - `np.random.seed(42)`: Set random seed untuk reproducibility (hasil sama setiap run)
+>   - `.reshape(-1, 1)`: Ubah array 1D ke 2D (required by scikit-learn)
+>   - `model.fit(X, y)`: Training model (cari best fit line)
+>   - `model.predict(X)`: Prediksi nilai y untuk X yang diberikan
+>   - `r2_score`: R² (coefficient of determination) - seberapa baik model explain variability data (0-1, higher is better)
+> - **Interpretasi**: Slope (koefisien) menunjukkan berapa nilai naik untuk setiap +1 jam belajar
 
 ```python
-# Generate synthetic data
+# Buat data: Jam belajar vs Nilai
 np.random.seed(42)
-X = np.random.rand(100, 1) * 10  # 100 samples, 1 feature
-y = 2.5 * X.squeeze() + 5 + np.random.randn(100) * 2  # y = 2.5x + 5 + noise
+jam_belajar = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).reshape(-1, 1)
+nilai = 50 + 5 * jam_belajar.squeeze() + np.random.randn(10) * 3
 
-# Visualisasi data
-plt.scatter(X, y, alpha=0.6)
-plt.xlabel('X')
-plt.ylabel('y')
-plt.title('Dataset untuk Simple Linear Regression')
+# Visualisasi
+plt.scatter(jam_belajar, nilai)
+plt.xlabel('Jam Belajar')
+plt.ylabel('Nilai')
+plt.title('Jam Belajar vs Nilai')
 plt.show()
 
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-# Train model
+# Buat model
 model = LinearRegression()
-model.fit(X_train, y_train)
+model.fit(jam_belajar, nilai)
 
-# Prediksi
-y_pred_train = model.predict(X_train)
-y_pred_test = model.predict(X_test)
+# Lihat garis prediksi
+prediksi = model.predict(jam_belajar)
 
-# Koefisien
-print(f"Intercept (β₀): {model.intercept_:.2f}")
-print(f"Coefficient (β₁): {model.coef_[0]:.2f}")
-print(f"\nModel equation: y = {model.intercept_:.2f} + {model.coef_[0]:.2f}x")
-
-# Visualisasi hasil
-plt.figure(figsize=(12, 5))
-
-plt.subplot(1, 2, 1)
-plt.scatter(X_train, y_train, alpha=0.6, label='Training data')
-plt.plot(X_train, y_pred_train, color='red', linewidth=2, label='Regression line')
-plt.xlabel('X')
-plt.ylabel('y')
-plt.title('Training Set')
+plt.scatter(jam_belajar, nilai, label='Data asli')
+plt.plot(jam_belajar, prediksi, color='red', label='Garis prediksi')
+plt.xlabel('Jam Belajar')
+plt.ylabel('Nilai')
 plt.legend()
-
-plt.subplot(1, 2, 2)
-plt.scatter(X_test, y_test, alpha=0.6, label='Testing data', color='green')
-plt.plot(X_test, y_pred_test, color='red', linewidth=2, label='Regression line')
-plt.xlabel('X')
-plt.ylabel('y')
-plt.title('Testing Set')
-plt.legend()
-
-plt.tight_layout()
 plt.show()
 
-# Evaluasi
-print("\n=== Evaluasi Model ===")
-print(f"Train R² Score: {r2_score(y_train, y_pred_train):.4f}")
-print(f"Test R² Score: {r2_score(y_test, y_pred_test):.4f}")
-print(f"Train RMSE: {np.sqrt(mean_squared_error(y_train, y_pred_train)):.4f}")
-print(f"Test RMSE: {np.sqrt(mean_squared_error(y_test, y_pred_test)):.4f}")
+# Cek akurasi
+print(f"R² Score: {r2_score(nilai, prediksi):.3f}")
+print(f"Rumus: Nilai = {model.intercept_:.1f} + {model.coef_[0]:.1f} × Jam")
+
+# Prediksi baru
+jam_baru = [[12]]  # 12 jam belajar
+nilai_prediksi = model.predict(jam_baru)
+print(f"\nJika belajar 12 jam, prediksi nilai: {nilai_prediksi[0]:.1f}")
 ```
 
 ### Langkah 2: Multiple Linear Regression - Prediksi Harga Rumah
@@ -270,6 +231,17 @@ plt.show()
 ```
 
 ### Langkah 3: Polynomial Regression
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Modeling data dengan hubungan non-linear (curved) menggunakan polynomial features
+> - **Kapan digunakan**: Saat scatter plot menunjukkan pola curved/parabolic, bukan garis lurus
+> - **Penjelasan Kode**:
+>   - `PolynomialFeatures(degree=n)`: Transform x menjadi [x, x², x³, ..., xⁿ]
+>   - `include_bias=False`: Jangan tambah column of 1s (sudah ada di LinearRegression)
+>   - `fit_transform()`: Learn transformation dan apply (untuk training data)
+>   - `.transform()`: Apply learned transformation (untuk testing data)
+> - **Warning**: Degree tinggi (>5) bisa overfit! Model jadi terlalu "mengikuti" noise data
+> - **Best Practice**: Bandingkan beberapa degree, pilih yang balance antara train dan test score
 
 ```python
 # Generate non-linear data

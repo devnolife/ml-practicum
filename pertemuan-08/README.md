@@ -75,6 +75,17 @@ Pilih **SALAH SATU** dari kategori berikut:
    - Target variable
 
 3. Import Libraries & Load Data
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Setup environment dan load dataset untuk end-to-end ML project
+> - **Kapan digunakan**: Di awal setiap ML project, sebelum data exploration
+> - **Penjelasan Libraries**:
+>   - Core libraries: NumPy (array operations), Pandas (data manipulation)
+>   - Visualization: Matplotlib, Seaborn (exploratory data analysis)
+>   - ML: train_test_split (data splitting), StandardScaler (preprocessing)
+>   - Algorithms: Import sesuai project type (classification/regression/clustering)
+> - **Best Practice**: Import semua library di awal untuk dependency management yang jelas
+
 ```
 
 ```python
@@ -87,6 +98,14 @@ from sklearn.preprocessing import StandardScaler
 # ... other imports
 
 # Load dataset
+
+> **💡 Penjelasan Kode Loading Data:**
+> - **pd.read_csv()**: Load data dari CSV file ke Pandas DataFrame
+> - **.head()**: Preview 5 baris pertama (quick sanity check)
+> - **.info()**: Info dataset (jumlah rows, columns, data types, missing values)
+> - **.describe()**: Statistik deskriptif (mean, std, min, max, quartiles) untuk numeric columns
+> - **Tujuan**: Familiarisasi dengan struktur data sebelum processing
+
 df = pd.read_csv('your_dataset.csv')
 print(df.head())
 print(df.info())
@@ -94,6 +113,18 @@ print(df.describe())
 ```
 
 ### Part 2: Exploratory Data Analysis (20 points)
+
+> **💡 Penjelasan Program EDA:**
+> - **Tujuan**: Understand data distribution, relationships, patterns, dan quality issues
+> - **Kapan digunakan**: Setelah load data, sebelum preprocessing dan modeling
+> - **Tahapan EDA**:
+>   1. **Check missing values**: Identify data quality issues
+>   2. **Distribution analysis**: Histogram, boxplot untuk understand data spread
+>   3. **Correlation analysis**: Heatmap untuk find feature relationships
+>   4. **Outlier detection**: Identify extreme values yang bisa affect model
+>   5. **Target variable analysis**: Understand class distribution (classification) atau range (regression)
+> - **Kenapa penting**: "Garbage in, garbage out" - understand data before modeling!
+> - **Output**: Insights untuk guide preprocessing decisions
 
 ```python
 # 1. Check missing values
