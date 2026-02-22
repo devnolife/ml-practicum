@@ -75,6 +75,17 @@ Boosting yang menggunakan gradient descent untuk meminimalkan loss function.
 
 ### Persiapan: Import Library
 
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Import library untuk ensemble learning (kombinasi multiple models)
+> - **Kapan digunakan**: Saat butuh performa tinggi dan robustness, sering dipakai di kompetisi ML
+> - **Penjelasan Library**:
+>   - `RandomForestClassifier/Regressor`: Ensemble dari banyak decision trees (bagging)
+>   - `GradientBoostingClassifier/Regressor`: Sequential ensemble (boosting)
+>   - `cross_val_score`: K-fold cross validation untuk evaluasi robust
+>   - `GridSearchCV`: Systematic hyperparameter tuning
+> - **Kenapa Ensemble?**: "Two heads are better than one" - kombinasi model lemah → model kuat
+> - **Use Cases**: Kaggle competitions, production ML systems, high-stakes predictions
+
 ```python
 import numpy as np
 import pandas as pd
@@ -96,6 +107,27 @@ plt.rcParams['figure.figsize'] = (12, 8)
 ```
 
 ### Langkah 1: Random Forest untuk Classification
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Build ensemble classifier yang robust dan accurate menggunakan Random Forest
+> - **Kapan digunakan**: Default choice untuk tabular data classification, competitions, production systems
+> - **Cara Kerja Random Forest**:
+>   1. Create 100 decision trees (n_estimators=100)
+>   2. Setiap tree: train dengan random subset data (bootstrap sampling)
+>   3. Setiap split: pilih dari random subset features
+>   4. Final prediction: majority voting dari semua trees
+> - **Penjelasan Parameters**:
+>   - `n_estimators`: Jumlah trees (more = better, tapi slower. Default 100)
+>   - `max_depth`: Kedalaman maksimal each tree (None = unlimited, risk overfit)
+>   - `min_samples_split`: Minimal samples untuk split node (higher = simpler trees)
+>   - `random_state`: Seed untuk reproducibility
+> - **Keuntungan**:
+>   - Highly accurate out-of-the-box
+>   - Handle missing values & outliers
+>   - Built-in feature importance
+>   - Tidak perlu scaling!
+>   - Reduce overfitting dibanding single decision tree
+> - **Feature Importance**: Measure seberapa useful each feature untuk predictions
 
 ```python
 # Load dataset

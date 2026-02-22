@@ -1,327 +1,263 @@
-# Pertemuan 1: Pengenalan Python untuk ML dan Setup Environment
+# Pertemuan 1: Pengenalan Python untuk Machine Learning
 
 ## 🎯 Tujuan Pembelajaran
 
-Setelah menyelesaikan pertemuan ini, mahasiswa diharapkan mampu:
-1. Menginstall dan mengkonfigurasi environment Python untuk Machine Learning
-2. Memahami library dasar yang digunakan dalam ML (NumPy, Pandas, Matplotlib)
-3. Menggunakan Jupyter Notebook untuk eksperimen ML
-4. Memahami struktur data dasar dalam Python untuk ML
+Setelah pertemuan ini, kamu bisa:
+1. Install Python dan library ML
+2. Pakai NumPy, Pandas, dan Matplotlib
+3. Membuat visualisasi data sederhana
 
-## 📚 Teori Singkat
+## 📚 Pengenalan Singkat
 
-### Mengapa Python untuk Machine Learning?
+### Kenapa Pakai Python?
 
-Python menjadi bahasa pemrograman pilihan untuk Machine Learning karena:
-- **Ecosystem yang kaya**: Library seperti scikit-learn, TensorFlow, PyTorch
-- **Syntax yang mudah**: Readable dan mudah dipelajari
-- **Community yang besar**: Banyak tutorial, dokumentasi, dan support
-- **Integrasi yang baik**: Mudah diintegrasikan dengan tools lain
+Python itu mudah dipelajari dan punya banyak library untuk Machine Learning:
+- **NumPy**: Untuk menghitung angka dan array
+- **Pandas**: Untuk mengolah data (seperti Excel)
+- **Matplotlib**: Untuk membuat grafik
+- **Scikit-learn**: Untuk algoritma ML
 
-### Library Fundamental untuk ML
+## 🛠️ Setup - Install Library
 
-1. **NumPy**: Komputasi numerik dan operasi array
-2. **Pandas**: Manipulasi dan analisis data
-3. **Matplotlib/Seaborn**: Visualisasi data
-4. **Scikit-learn**: Algoritma machine learning
+### Cara 1: Menggunakan pip (Lebih Sederhana)
 
-## 🛠️ Setup Environment
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Install semua library Python yang dibutuhkan untuk Machine Learning dalam satu perintah
+> - **Kapan digunakan**: Saat pertama kali setup environment Python untuk ML, atau saat library belum terinstall
+> - **Library yang diinstall**:
+>   - `numpy`: Untuk operasi matematika dan array
+>   - `pandas`: Untuk manipulasi data tabular (seperti Excel)
+>   - `matplotlib`: Untuk membuat visualisasi dasar
+>   - `seaborn`: Untuk visualisasi statistik yang lebih cantik
+>   - `scikit-learn`: Kumpulan algoritma Machine Learning
+>   - `jupyter`: Untuk menjalankan notebook interaktif
 
-### Instalasi Anaconda
-
-1. Download Anaconda dari [https://www.anaconda.com/download](https://www.anaconda.com/download)
-2. Install sesuai sistem operasi Anda
-3. Verifikasi instalasi:
 ```bash
-conda --version
-python --version
+# Install semua library sekaligus
+pip install numpy pandas matplotlib seaborn scikit-learn jupyter
 ```
 
-### Membuat Virtual Environment
+### Cara 2: Menggunakan Anaconda (Opsional)
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Membuat environment Python yang terisolasi khusus untuk project ML
+> - **Kapan digunakan**: Saat ingin memisahkan dependencies project berbeda, atau menggunakan distribusi Anaconda
+> - **Penjelasan Kode**:
+>   - `conda create -n ml-practicum python=3.10`: Buat environment baru bernama "ml-practicum" dengan Python 3.10
+>   - `conda activate ml-practicum`: Aktifkan environment tersebut
+>   - `conda install ...`: Install library yang dibutuhkan di dalam environment
 
 ```bash
-# Membuat environment baru
 conda create -n ml-practicum python=3.10
-
-# Aktivasi environment
 conda activate ml-practicum
-
-# Install library yang dibutuhkan
 conda install numpy pandas matplotlib seaborn scikit-learn jupyter
-```
-
-### Alternatif: Menggunakan pip
-
-```bash
-# Membuat virtual environment
-python -m venv ml-env
-
-# Aktivasi (Windows)
-ml-env\Scripts\activate
-
-# Aktivasi (Linux/Mac)
-source ml-env/bin/activate
-
-# Install library
-pip install numpy pandas matplotlib seaborn scikit-learn jupyter notebook
 ```
 
 ## 📝 Praktikum
 
-### Langkah 1: Menjalankan Jupyter Notebook
+### Langkah 1: Jalankan Jupyter Notebook
 
 ```bash
 jupyter notebook
 ```
 
-Browser akan otomatis terbuka. Buat notebook baru dengan nama `pertemuan_01_intro.ipynb`
+Browser akan terbuka otomatis. Buat notebook baru.
 
-### Langkah 2: Import dan Test Library
+### Langkah 2: Import Library
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Mengimport library yang sudah diinstall agar bisa digunakan dalam kode Python
+> - **Kapan digunakan**: Di awal setiap script atau notebook Python untuk ML
+> - **Penjelasan Kode**:
+>   - `import numpy as np`: Import NumPy dengan alias 'np' (konvensi standar)
+>   - `import pandas as pd`: Import Pandas dengan alias 'pd' (konvensi standar)
+>   - `import matplotlib.pyplot as plt`: Import modul pyplot dari Matplotlib untuk membuat grafik
+>   - Jika tidak ada error, berarti library berhasil diinstall dengan benar
 
 ```python
-# Import library dasar
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn import datasets
 
-# Verifikasi versi
-print(f"NumPy version: {np.__version__}")
-print(f"Pandas version: {pd.__version__}")
+print("Library berhasil di-import!")
 ```
 
-### Langkah 3: Eksplorasi NumPy
+### Langkah 3: Belajar NumPy (Untuk Hitung Angka)
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Melakukan operasi matematika cepat pada array dan matrix
+> - **Kapan digunakan**: Saat perlu perhitungan numerik, operasi matrix, atau array multi-dimensi dalam ML
+> - **Penjelasan Kode**:
+>   - `np.array([...])`: Membuat array NumPy dari list Python (lebih cepat dari list biasa)
+>   - `.mean()`: Menghitung rata-rata (average) dari semua elemen
+>   - `.sum()`: Menjumlahkan semua elemen array
+>   - Array 2D (matrix): Digunakan untuk representasi data ML (baris = sampel, kolom = fitur)
+> - **Keuntungan**: 10-100x lebih cepat dari list Python untuk operasi matematika
 
 ```python
-# Membuat array
-arr = np.array([1, 2, 3, 4, 5])
-print("Array:", arr)
-print("Shape:", arr.shape)
-print("Data type:", arr.dtype)
+# Buat array sederhana
+angka = np.array([10, 20, 30, 40, 50])
+print("Array:", angka)
 
-# Operasi matematika
-print("Mean:", np.mean(arr))
-print("Standard deviation:", np.std(arr))
+# Hitung rata-rata dan total
+print("Rata-rata:", angka.mean())
+print("Total:", angka.sum())
 
-# Array 2D (Matrix)
-matrix = np.array([[1, 2, 3], 
-                   [4, 5, 6], 
+# Buat matrix 3x3
+matrix = np.array([[1, 2, 3],
+                   [4, 5, 6],
                    [7, 8, 9]])
 print("\nMatrix:")
 print(matrix)
-print("Shape:", matrix.shape)
-
-# Indexing dan Slicing
-print("Element at [0,0]:", matrix[0, 0])
-print("First row:", matrix[0, :])
-print("First column:", matrix[:, 0])
 ```
 
-### Langkah 4: Eksplorasi Pandas
+### Langkah 4: Belajar Pandas (Untuk Kelola Data)
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Mengolah data tabular (seperti Excel) dengan mudah - membaca, filter, transform data
+> - **Kapan digunakan**: Untuk exploratory data analysis, data cleaning, preprocessing sebelum ML
+> - **Penjelasan Kode**:
+>   - `pd.DataFrame(dict)`: Membuat tabel data dari dictionary (dict keys = nama kolom)
+>   - `df['Nilai'].mean()`: Akses kolom 'Nilai' dan hitung rata-ratanya
+>   - `df[df['Umur'] > 21]`: Filter baris yang memenuhi kondisi (boolean indexing)
+>   - DataFrame adalah struktur data utama dalam analisis data Python
+> - **Analogi**: Pandas DataFrame ≈ Excel Spreadsheet yang bisa diprogram
 
 ```python
-# Membuat DataFrame
+# Buat tabel data
 data = {
-    'Nama': ['Alice', 'Bob', 'Charlie', 'David', 'Eve'],
-    'Umur': [25, 30, 35, 28, 32],
-    'Kota': ['Jakarta', 'Bandung', 'Surabaya', 'Medan', 'Makassar'],
-    'Gaji': [5000000, 6000000, 7000000, 5500000, 6500000]
+    'Nama': ['Ali', 'Budi', 'Citra', 'Dina'],
+    'Umur': [20, 22, 21, 23],
+    'Nilai': [85, 90, 88, 92]
 }
 
 df = pd.DataFrame(data)
 print(df)
 
-# Operasi dasar DataFrame
-print("\n=== Info DataFrame ===")
-print(df.info())
+# Hitung rata-rata nilai
+print("\nRata-rata nilai:", df['Nilai'].mean())
 
-print("\n=== Statistik Deskriptif ===")
-print(df.describe())
-
-print("\n=== Rata-rata Gaji ===")
-print(f"Rp {df['Gaji'].mean():,.0f}")
-
-# Filtering data
-print("\n=== Umur > 30 ===")
-print(df[df['Umur'] > 30])
+# Filter yang umurnya > 21
+print("\nYang umurnya > 21:")
+print(df[df['Umur'] > 21])
 ```
 
-### Langkah 5: Visualisasi dengan Matplotlib
+### Langkah 5: Buat Grafik Sederhana
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Visualisasi data untuk memahami pola, trend, dan distribusi data dengan mudah
+> - **Kapan digunakan**: Untuk presentasi hasil, eksplorasi data, atau memahami performa model ML
+> - **Penjelasan Kode**:
+>   - `plt.figure(figsize=(8, 5))`: Buat canvas kosong ukuran 8x5 inch
+>   - `plt.bar(x, y)`: Buat bar chart (grafik batang)
+>   - `plt.title()`, `plt.xlabel()`, `plt.ylabel()`: Tambah label untuk kejelasan
+>   - `plt.show()`: Tampilkan grafik di layar
+> - **Kenapa penting**: "A picture is worth a thousand words" - grafik memudahkan pemahaman data
 
 ```python
-# Data untuk visualisasi
-x = np.linspace(0, 10, 100)
-y = np.sin(x)
+# Data nilai siswa
+nama = ['Ali', 'Budi', 'Citra', 'Dina']
+nilai = [85, 90, 88, 92]
 
-# Membuat plot
-plt.figure(figsize=(10, 6))
-plt.plot(x, y, label='sin(x)', color='blue', linewidth=2)
-plt.title('Fungsi Sinus', fontsize=14)
-plt.xlabel('x', fontsize=12)
-plt.ylabel('sin(x)', fontsize=12)
-plt.grid(True, alpha=0.3)
-plt.legend()
-plt.show()
-
-# Bar plot untuk data gaji
-plt.figure(figsize=(10, 6))
-plt.bar(df['Nama'], df['Gaji'], color='skyblue', edgecolor='navy')
-plt.title('Gaji Karyawan', fontsize=14)
-plt.xlabel('Nama', fontsize=12)
-plt.ylabel('Gaji (Rp)', fontsize=12)
-plt.xticks(rotation=45)
-plt.tight_layout()
+# Buat grafik batang
+plt.figure(figsize=(8, 5))
+plt.bar(nama, nilai, color='skyblue')
+plt.title('Nilai Siswa')
+plt.xlabel('Nama')
+plt.ylabel('Nilai')
 plt.show()
 ```
 
-### Langkah 6: Load Dataset dari Scikit-learn
+### Langkah 6: Load Dataset Iris (Dataset Bunga)
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Memuat dataset bawaan scikit-learn (Iris flower dataset) untuk belajar ML
+> - **Kapan digunakan**: Saat belajar algoritma classification atau ingin dataset sederhana untuk testing
+> - **Penjelasan Kode**:
+>   - `load_iris()`: Load dataset Iris (150 sampel, 4 fitur, 3 spesies bunga)
+>   - `pd.DataFrame(iris.data, columns=...)`: Konversi array NumPy ke Pandas DataFrame
+>   - `plt.scatter(x, y, c=color)`: Buat scatter plot dengan warna berbeda per kategori
+>   - `c=df_iris['jenis']`: Warna titik berdasarkan spesies (0=setosa, 1=versicolor, 2=virginica)
+> - **Dataset Iris**: Dataset klasik untuk belajar classification (sangat populer sejak 1936!)
 
 ```python
-# Load dataset Iris (dataset klasik untuk ML)
 from sklearn.datasets import load_iris
 
+# Load data
 iris = load_iris()
+df_iris = pd.DataFrame(iris.data, columns=iris.feature_names)
+df_iris['jenis'] = iris.target
 
-# Convert ke DataFrame
-iris_df = pd.DataFrame(
-    data=iris.data,
-    columns=iris.feature_names
-)
-iris_df['species'] = iris.target
-iris_df['species_name'] = iris_df['species'].map({
-    0: 'setosa',
-    1: 'versicolor', 
-    2: 'virginica'
-})
+print(df_iris.head())
 
-print(iris_df.head(10))
-print(f"\nJumlah data: {len(iris_df)}")
-print(f"Jumlah fitur: {len(iris.feature_names)}")
-print(f"Jumlah kelas: {len(iris.target_names)}")
-
-# Visualisasi distribusi
-plt.figure(figsize=(12, 5))
-
-plt.subplot(1, 2, 1)
-iris_df['species_name'].value_counts().plot(kind='bar', color='coral')
-plt.title('Distribusi Spesies Iris')
-plt.xlabel('Spesies')
-plt.ylabel('Jumlah')
-
-plt.subplot(1, 2, 2)
-plt.scatter(iris_df['sepal length (cm)'], 
-           iris_df['sepal width (cm)'],
-           c=iris_df['species'],
-           cmap='viridis',
-           alpha=0.6)
-plt.xlabel('Sepal Length (cm)')
-plt.ylabel('Sepal Width (cm)')
-plt.title('Scatter Plot Iris Dataset')
-plt.colorbar(label='Species')
-
-plt.tight_layout()
+# Buat scatter plot
+plt.scatter(df_iris.iloc[:, 0], df_iris.iloc[:, 1], c=df_iris['jenis'])
+plt.xlabel('Panjang Sepal')
+plt.ylabel('Lebar Sepal')
+plt.title('Data Bunga Iris')
 plt.show()
 ```
 
 ## 💪 Tugas Praktikum
 
-### Tugas 1: Eksplorasi Array dan Matrix (20 poin)
+### Tugas 1: Main dengan NumPy (25 poin)
 
-Buat sebuah notebook yang melakukan:
-1. Membuat array NumPy dengan 20 angka random antara 0-100
-2. Hitung mean, median, standard deviation, min, dan max
-3. Buat matrix 5x5 dengan angka random
-4. Hitung transpose dari matrix tersebut
-5. Hitung determinant dari matrix (gunakan `np.linalg.det()`)
-
-### Tugas 2: Analisis Data dengan Pandas (30 poin)
-
-Buat DataFrame dengan data minimal 10 mahasiswa yang berisi:
-- NIM
-- Nama
-- Nilai Matematika
-- Nilai Fisika
-- Nilai Kimia
-
-Lakukan:
-1. Hitung rata-rata nilai per mata kuliah
-2. Hitung rata-rata nilai per mahasiswa
-3. Tampilkan 5 mahasiswa dengan nilai tertinggi
-4. Filter mahasiswa dengan rata-rata nilai >= 80
-5. Export DataFrame ke file CSV
-
-### Tugas 3: Visualisasi Data (30 poin)
-
-Gunakan data yang sama dari Tugas 2, buat:
-1. Bar chart perbandingan nilai rata-rata per mata kuliah
-2. Histogram distribusi nilai Matematika
-3. Scatter plot hubungan antara Nilai Matematika dan Fisika
-4. Box plot untuk semua nilai mata kuliah
-
-### Tugas 4: Eksplorasi Dataset (20 poin)
-
-Load dataset berikut dari scikit-learn:
-- `load_wine()` atau `load_breast_cancer()`
-
-Lakukan:
-1. Tampilkan 10 baris pertama dalam bentuk DataFrame
-2. Tampilkan statistik deskriptif
-3. Buat minimal 2 visualisasi yang menunjukkan karakteristik dataset
-4. Tulis interpretasi singkat (3-5 kalimat) tentang dataset tersebut
-
-## 📤 Cara Mengumpulkan
-
-1. Buat satu notebook Jupyter (.ipynb) yang berisi semua tugas
-2. Pastikan semua cell sudah di-run dan menampilkan output
-3. Export notebook ke format PDF (File → Download as → PDF)
-4. Rename file: `NIM_Nama_Pertemuan01.pdf`
-5. Upload ke sistem LMS atau kirim ke email dosen
-
-**Alternatif**: Push ke GitHub repository pribadi dan share link-nya
-
-## ✅ Kriteria Penilaian
-
-| Aspek | Bobot |
-|-------|-------|
-| Environment setup berhasil (screenshot) | 10% |
-| Tugas 1: Array dan Matrix | 20% |
-| Tugas 2: Analisis dengan Pandas | 30% |
-| Tugas 3: Visualisasi | 30% |
-| Tugas 4: Eksplorasi Dataset | 20% |
-| Kerapihan kode dan dokumentasi | 10% |
-
-## 📚 Referensi
-
-1. [NumPy Documentation](https://numpy.org/doc/)
-2. [Pandas Documentation](https://pandas.pydata.org/docs/)
-3. [Matplotlib Tutorials](https://matplotlib.org/stable/tutorials/index.html)
-4. [Scikit-learn Documentation](https://scikit-learn.org/stable/)
-5. [Jupyter Notebook Documentation](https://jupyter-notebook.readthedocs.io/)
-
-## 🆘 Troubleshooting
-
-### Error: "conda: command not found"
-- Pastikan Anaconda sudah terinstall dengan benar
-- Restart terminal/command prompt
-- Cek PATH environment variable
-
-### Error saat import library
-```bash
-# Install ulang library
-conda install -c conda-forge <nama-library>
-# atau
-pip install <nama-library>
+```python
+# Buat array dengan 10 angka random
+angka = np.random.randint(1, 100, 10)
+print("Data:", angka)
+print("Rata-rata:", angka.mean())
+print("Nilai tertinggi:", angka.max())
+print("Nilai terendah:", angka.min())
 ```
 
-### Jupyter Notebook tidak bisa dibuka
-```bash
-# Update Jupyter
-pip install --upgrade jupyter notebook
+### Tugas 2: Buat Tabel Data (35 poin)
+
+Buat tabel data 5 teman kamu dengan kolom: Nama, Umur, Nilai
+```python
+data = {
+    'Nama': ['...', '...', ...],
+    'Umur': [...],
+    'Nilai': [...]
+}
+df = pd.DataFrame(data)
 ```
+
+Lalu:
+- Tampilkan yang nilainya >= 80
+- Hitung rata-rata umur
+- Simpan ke file CSV: `df.to_csv('data_siswa.csv')`
+
+### Tugas 3: Buat Grafik (25 poin)
+
+Buat 2 grafik dari data Tugas 2:
+1. Grafik batang untuk nilai semua siswa
+2. Scatter plot umur vs nilai
+
+### Tugas 4: Eksplorasi Dataset (15 poin)
+
+```python
+from sklearn.datasets import load_wine
+wine = load_wine()
+df_wine = pd.DataFrame(wine.data, columns=wine.feature_names)
+```
+
+Tampilkan:
+- 5 baris pertama
+- Statistik (mean, min, max) dari 3 kolom pertama
+
+## ✅ Cara Mengumpulkan
+
+1. Simpan semua kode dalam 1 file notebook (.ipynb)
+2. Export ke PDF
+3. Upload dengan nama: `NIM_Nama_Pertemuan01.pdf`
+
+## 📚 Referensi Cepat
+
+- [NumPy Cheatsheet](https://numpy.org/doc/)
+- [Pandas Cheatsheet](https://pandas.pydata.org/docs/)
+- [Matplotlib Gallery](https://matplotlib.org/stable/gallery/)
 
 ---
 
 **Selamat Belajar! 🚀**
-
-Jika ada pertanyaan, silakan diskusikan di forum kelas atau hubungi asisten praktikum.

@@ -1,44 +1,36 @@
-# Pertemuan 2: Data Preprocessing dan Exploratory Data Analysis (EDA)
+# Pertemuan 2: Membersihkan Data dan Eksplorasi Data (EDA)
 
 ## 🎯 Tujuan Pembelajaran
 
-Setelah menyelesaikan pertemuan ini, mahasiswa diharapkan mampu:
-1. Memahami pentingnya preprocessing dalam machine learning
-2. Melakukan data cleaning (handling missing values, duplicates, outliers)
-3. Melakukan normalisasi dan standardisasi data
-4. Melakukan Exploratory Data Analysis (EDA) untuk memahami karakteristik data
-5. Membuat visualisasi yang informatif untuk analisis data
+Setelah pertemuan ini, kamu bisa:
+1. Membersihkan data yang kotor (missing values, duplikat)
+2. Mendeteksi dan menangani outliers (data aneh)
+3. Menskala data agar siap dipakai ML
+4. Membuat visualisasi untuk memahami data
 
-## 📚 Teori Singkat
+## 📚 Penjelasan Singkat
 
-### Mengapa Data Preprocessing Penting?
+### Kenapa Harus Bersihkan Data?
 
-> "Garbage In, Garbage Out" - Kualitas model ML sangat bergantung pada kualitas data
+Data di dunia nyata biasanya kotor:
+- **Data hilang**: Ada nilai yang kosong
+- **Data duplikat**: Data yang sama muncul 2 kali
+- **Outliers**: Nilai yang aneh/ekstrim
+- **Skala berbeda**: Umur (1-100) vs Gaji (1000000-10000000)
 
-Data di dunia nyata sering kali:
-- **Tidak lengkap**: Missing values
-- **Tidak konsisten**: Format berbeda, duplikasi
-- **Noisy**: Outliers, error pengukuran
-- **Tidak seimbang**: Skala fitur yang berbeda jauh
-
-### Tahapan Data Preprocessing
-
-1. **Data Cleaning**: Mengatasi missing values, duplikasi, outliers
-2. **Data Transformation**: Normalisasi, standardisasi, encoding
-3. **Feature Engineering**: Membuat fitur baru dari fitur yang ada
-4. **Data Splitting**: Membagi data untuk training dan testing
-
-### Exploratory Data Analysis (EDA)
-
-EDA adalah proses investigasi awal untuk:
-- Memahami struktur data
-- Menemukan pola dan anomali
-- Memvalidasi asumsi
-- Menentukan fitur yang relevan
+**Ingat**: Model ML hanya sebagus data yang kita kasih!
 
 ## 📝 Praktikum
 
-### Persiapan: Import Library
+### Persiapan
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Import library untuk data cleaning, preprocessing, dan visualisasi
+> - **Kapan digunakan**: Di awal setiap project ML sebelum proses data cleaning
+> - **Penjelasan Library**:
+>   - `StandardScaler`: Standarisasi data (mean=0, std=1) untuk algoritma sensitive terhadap scale
+>   - `MinMaxScaler`: Normalisasi data ke range 0-1
+>   - Library lain: NumPy, Pandas untuk manipulasi data; Matplotlib, Seaborn untuk visualisasi
 
 ```python
 import numpy as np
@@ -46,331 +38,287 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.impute import SimpleImputer
-
-# Setting style untuk visualisasi
-sns.set_style('whitegrid')
-plt.rcParams['figure.figsize'] = (10, 6)
 ```
 
-### Langkah 1: Load dan Inspeksi Data
+### Langkah 1: Load Data dan Lihat Sekilas
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Load dataset dan lakukan inspeksi awal untuk memahami struktur data
+> - **Kapan digunakan**: Langkah pertama dalam setiap project data science untuk familiarisasi dengan data
+> - **Penjelasan Kode**:
+>   - `sns.load_dataset('titanic')`: Load dataset Titanic yang sudah ada di Seaborn
+>   - `.head()`: Tampilkan 5 baris pertama untuk preview data
+>   - `len(df)`: Hitung jumlah baris (sampel/observasi)
+>   - `len(df.columns)`: Hitung jumlah kolom (fitur/variabel)
+> - **Dataset Titanic**: Data penumpang kapal Titanic (selamat/tidak, umur, kelas, dll)
 
 ```python
-# Load dataset (contoh: menggunakan dataset Titanic dari seaborn)
+# Load dataset Titanic
 df = sns.load_dataset('titanic')
 
-# Inspeksi awal
-print("=== 5 Baris Pertama ===")
+# Lihat 5 baris pertama
 print(df.head())
 
-print("\n=== Info Dataset ===")
-print(df.info())
-
-print("\n=== Statistik Deskriptif ===")
-print(df.describe())
-
-print("\n=== Ukuran Dataset ===")
-print(f"Jumlah baris: {df.shape[0]}")
-print(f"Jumlah kolom: {df.shape[1]}")
-
-print("\n=== Nama Kolom ===")
-print(df.columns.tolist())
+# Info dataset
+print(f"\nJumlah baris: {len(df)}")
+print(f"Jumlah kolom: {len(df.columns)}")
 ```
 
-### Langkah 2: Handling Missing Values
+### Langkah 2: Cari Data yang Hilang
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Identifikasi kolom yang memiliki missing values (data kosong/null)
+> - **Kapan digunakan**: Setelah load data, sebelum training model (model tidak bisa proses data null)
+> - **Penjelasan Kode**:
+>   - `df.isnull()`: Return DataFrame boolean (True jika null, False jika tidak)
+>   - `.sum()`: Hitung jumlah True per kolom (jumlah missing values)
+>   - `sns.heatmap()`: Visualisasi missing values dengan peta warna (kuning=hilang, ungu=ada)
+>   - `yticklabels=False`: Sembunyikan label baris untuk readability
+> - **Kenapa penting**: Missing values bisa bikin model error atau hasil prediksi buruk
 
 ```python
-# Cek missing values
-print("=== Missing Values ===")
-missing = df.isnull().sum()
-print(missing[missing > 0])
+# Cek data kosong
+print("Data yang hilang:")
+print(df.isnull().sum())
 
-# Visualisasi missing values
-plt.figure(figsize=(12, 6))
-sns.heatmap(df.isnull(), cbar=True, yticklabels=False, cmap='viridis')
-plt.title('Missing Values Heatmap')
-plt.show()
-
-# Strategi 1: Drop baris dengan missing values
-df_dropped = df.dropna()
-print(f"\nJumlah baris setelah drop: {len(df_dropped)}")
-
-# Strategi 2: Fill dengan nilai tertentu
-df_filled = df.copy()
-df_filled['age'].fillna(df_filled['age'].median(), inplace=True)
-df_filled['embarked'].fillna(df_filled['embarked'].mode()[0], inplace=True)
-
-# Strategi 3: Menggunakan SimpleImputer dari sklearn
-imputer = SimpleImputer(strategy='mean')
-df_numeric = df.select_dtypes(include=[np.number])
-df_imputed = pd.DataFrame(
-    imputer.fit_transform(df_numeric),
-    columns=df_numeric.columns
-)
-
-print("\n=== Missing Values Setelah Handling ===")
-print(df_filled.isnull().sum().sum())
-```
-
-### Langkah 3: Handling Duplicates
-
-```python
-# Cek duplikasi
-duplicates = df.duplicated().sum()
-print(f"Jumlah baris duplikat: {duplicates}")
-
-# Tampilkan baris duplikat
-if duplicates > 0:
-    print("\n=== Baris Duplikat ===")
-    print(df[df.duplicated(keep=False)])
-    
-# Remove duplikasi
-df_clean = df.drop_duplicates()
-print(f"\nJumlah baris setelah remove duplikat: {len(df_clean)}")
-```
-
-### Langkah 4: Handling Outliers
-
-```python
-# Deteksi outliers menggunakan IQR (Interquartile Range)
-def detect_outliers_iqr(data, column):
-    Q1 = data[column].quantile(0.25)
-    Q3 = data[column].quantile(0.75)
-    IQR = Q3 - Q1
-    
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    
-    outliers = data[(data[column] < lower_bound) | (data[column] > upper_bound)]
-    return outliers, lower_bound, upper_bound
-
-# Contoh: deteksi outliers pada kolom 'fare'
-df_temp = df_filled.copy()
-outliers, lower, upper = detect_outliers_iqr(df_temp, 'fare')
-print(f"\n=== Outliers di kolom 'fare' ===")
-print(f"Jumlah outliers: {len(outliers)}")
-print(f"Lower bound: {lower:.2f}")
-print(f"Upper bound: {upper:.2f}")
-
-# Visualisasi outliers dengan boxplot
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# Sebelum handling outliers
-axes[0].boxplot(df_temp['fare'].dropna())
-axes[0].set_title('Fare - Sebelum Handling Outliers')
-axes[0].set_ylabel('Fare')
-
-# Setelah handling (capping method)
-df_temp['fare_capped'] = df_temp['fare'].clip(lower=lower, upper=upper)
-axes[1].boxplot(df_temp['fare_capped'])
-axes[1].set_title('Fare - Setelah Handling Outliers')
-axes[1].set_ylabel('Fare')
-
-plt.tight_layout()
+# Visualisasi dengan heatmap
+plt.figure(figsize=(10, 6))
+sns.heatmap(df.isnull(), cbar=True, yticklabels=False)
+plt.title('Peta Data Hilang (Kuning = Hilang)')
 plt.show()
 ```
 
-### Langkah 5: Normalisasi dan Standardisasi
+### Langkah 3: Isi Data yang Hilang
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Menangani missing values dengan strategi yang tepat agar data siap untuk ML
+> - **Kapan digunakan**: Setelah identifikasi missing values, sebelum training
+> - **Strategi Imputation**:
+>   - **Median** (`fillna(median())`): Untuk data numerik dengan outliers (robust)
+>   - **Mode** (`fillna(mode()[0])`): Untuk data kategorikal (nilai paling sering muncul)
+>   - **Drop** (`dropna()`): Buang baris dengan missing values (jika sedikit)
+> - **Penjelasan Parameter**:
+>   - `inplace=True`: Ubah DataFrame original (tidak buat copy baru)
+> - **Tips**: Jangan drop jika missing values > 5% data!
 
 ```python
-# Pilih kolom numerik
-numeric_cols = ['age', 'fare']
-df_numeric = df_filled[numeric_cols].dropna()
+# Cara 1: Isi dengan nilai tengah (median)
+df['age'].fillna(df['age'].median(), inplace=True)
 
-# Min-Max Normalization (0-1)
-scaler_minmax = MinMaxScaler()
-df_normalized = pd.DataFrame(
-    scaler_minmax.fit_transform(df_numeric),
-    columns=numeric_cols
-)
+# Cara 2: Isi dengan nilai paling sering (mode)
+df['embarked'].fillna(df['embarked'].mode()[0], inplace=True)
 
-# Standardization (mean=0, std=1)
-scaler_standard = StandardScaler()
-df_standardized = pd.DataFrame(
-    scaler_standard.fit_transform(df_numeric),
-    columns=numeric_cols
-)
+# Cara 3: Hapus baris yang masih kosong
+df = df.dropna()
 
-# Visualisasi perbandingan
-fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+print("Data hilang setelah dibersihkan:", df.isnull().sum().sum())
+```
 
-# Original
-axes[0].hist(df_numeric['age'], bins=30, edgecolor='black', alpha=0.7)
-axes[0].set_title('Original Data - Age')
-axes[0].set_xlabel('Age')
+### Langkah 4: Hapus Data Duplikat
 
-# Normalized
-axes[1].hist(df_normalized['age'], bins=30, edgecolor='black', alpha=0.7, color='green')
-axes[1].set_title('Normalized Data - Age')
-axes[1].set_xlabel('Age (normalized)')
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Menghilangkan baris yang identik (duplikat) untuk menghindari bias dalam model
+> - **Kapan digunakan**: Setelah handle missing values, saat ada kemungkinan data entry ganda
+> - **Penjelasan Kode**:
+>   - `df.duplicated()`: Return Series boolean (True jika baris duplikat)
+>   - `.sum()`: Hitung total baris duplikat
+>   - `drop_duplicates()`: Hapus semua baris duplikat, keep yang pertama
+> - **Kenapa penting**: Data duplikat bisa bikin model "belajar terlalu banyak" dari satu observasi yang sama
+> - **Note**: By default, semua kolom dipertimbangkan untuk cek duplikat
 
-# Standardized
-axes[2].hist(df_standardized['age'], bins=30, edgecolor='black', alpha=0.7, color='orange')
-axes[2].set_title('Standardized Data - Age')
-axes[2].set_xlabel('Age (standardized)')
+```python
+# Cek dan hapus duplikat
+print(f"Jumlah duplikat: {df.duplicated().sum()}")
+df = df.drop_duplicates()
+print(f"Jumlah data sekarang: {len(df)}")
+```
+
+### Langkah 5: Deteksi dan Tangani Outliers
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Identifikasi data yang ekstrim/aneh (outliers) yang bisa ganggu performa model
+> - **Kapan digunakan**: Untuk data numerik continuous, setelah data cleaning dasar
+> - **Penjelasan Kode**:
+>   - `plt.boxplot()`: Visualisasi distribusi data dan outliers
+>   - Boxplot menunjukkan: Q1 (25%), Median (50%), Q3 (75%), dan outliers (titik di luar whiskers)
+>   - `plt.subplot(1, 2, x)`: Buat 2 grafik side-by-side (1 baris, 2 kolom)
+> - **Apa itu Outlier**: Data yang jauh dari mayoritas data (contoh: umur 200 tahun, harga tiket $1 juta)
+> - **Strategi**: Bisa di-cap (batasi), remove, atau transform tergantung kasus
+
+```python
+# Lihat outliers pakai boxplot
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.boxplot(df['age'].dropna())
+plt.title('Boxplot: Umur')
+
+plt.subplot(1, 2, 2)
+plt.boxplot(df['fare'].dropna())
+plt.title('Boxplot: Harga Tiket')
 
 plt.tight_layout()
 plt.show()
 
-print("=== Statistik Comparison ===")
-print(f"Original - Mean: {df_numeric['age'].mean():.2f}, Std: {df_numeric['age'].std():.2f}")
-print(f"Normalized - Mean: {df_normalized['age'].mean():.2f}, Std: {df_normalized['age'].std():.2f}")
-print(f"Standardized - Mean: {df_standardized['age'].mean():.2f}, Std: {df_standardized['age'].std():.2f}")
+# Batasi outliers (capping)
+Q1 = df['fare'].quantile(0.25)
+Q3 = df['fare'].quantile(0.75)
+IQR = Q3 - Q1
+upper_limit = Q3 + 1.5 * IQR
+
+df['fare'] = df['fare'].clip(upper=upper_limit)
+print(f"Harga maksimal setelah capping: {df['fare'].max()}")
 ```
 
-### Langkah 6: Exploratory Data Analysis (EDA)
+### Langkah 6: Skala Data (Normalisasi)
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Ubah skala data ke range yang sama (0-1) agar semua fitur punya kontribusi seimbang
+> - **Kapan digunakan**: Sebelum training algoritma yang sensitive terhadap scale (KNN, SVM, Neural Networks)
+> - **Kenapa penting**: Tanpa normalisasi, fitur dengan nilai besar (misal: gaji 5000000) akan dominan vs fitur kecil (umur 25)
+> - **Penjelasan Kode**:
+>   - `MinMaxScaler()`: Transformasi data ke range [0, 1] dengan rumus: (x - min) / (max - min)
+>   - `.fit_transform()`: Hitung min/max dari data, lalu transform
+>   - `.copy()`: Buat copy DataFrame agar original tidak berubah
+> - **Alternative**: StandardScaler (mean=0, std=1) untuk data dengan distribusi normal
 
 ```python
-# 1. Distribusi Univariate
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+# Pilih kolom angka
+data_angka = df[['age', 'fare']].copy()
 
-# Histogram Age
-axes[0, 0].hist(df_filled['age'], bins=30, edgecolor='black', alpha=0.7)
-axes[0, 0].set_title('Distribusi Umur Penumpang')
-axes[0, 0].set_xlabel('Umur')
-axes[0, 0].set_ylabel('Frekuensi')
+# Normalisasi ke skala 0-1
+scaler = MinMaxScaler()
+data_normalized = scaler.fit_transform(data_angka)
+df_norm = pd.DataFrame(data_normalized, columns=['age', 'fare'])
 
-# Bar plot Survival
-survival_counts = df_filled['survived'].value_counts()
-axes[0, 1].bar(survival_counts.index, survival_counts.values, color=['red', 'green'])
-axes[0, 1].set_title('Jumlah Survivor vs Non-Survivor')
-axes[0, 1].set_xlabel('Survived (0=No, 1=Yes)')
-axes[0, 1].set_ylabel('Count')
+# Bandingkan
+print("SEBELUM Normalisasi:")
+print(data_angka.head())
+print("\nSESUDAH Normalisasi:")
+print(df_norm.head())
+```
 
-# Bar plot Class
-class_counts = df_filled['class'].value_counts()
-axes[1, 0].bar(class_counts.index, class_counts.values, color='skyblue')
-axes[1, 0].set_title('Distribusi Passenger Class')
-axes[1, 0].set_xlabel('Class')
-axes[1, 0].set_ylabel('Count')
+### Langkah 7: Eksplorasi Data (EDA)
 
-# Pie chart Gender
-gender_counts = df_filled['sex'].value_counts()
-axes[1, 1].pie(gender_counts.values, labels=gender_counts.index, autopct='%1.1f%%')
-axes[1, 1].set_title('Distribusi Gender')
+```python
+# 1. Lihat distribusi data
+plt.figure(figsize=(12, 8))
+
+# Umur penumpang
+plt.subplot(2, 2, 1)
+plt.hist(df['age'], bins=30, color='skyblue', edgecolor='black')
+plt.title('Distribusi Umur')
+
+# Selamat atau tidak
+plt.subplot(2, 2, 2)
+df['survived'].value_counts().plot(kind='bar', color=['red', 'green'])
+plt.title('Selamat vs Tidak')
+plt.xticks(rotation=0)
+
+# Kelas penumpang
+plt.subplot(2, 2, 3)
+df['class'].value_counts().plot(kind='bar', color='orange')
+plt.title('Kelas Penumpang')
+plt.xticks(rotation=0)
+
+# Gender
+plt.subplot(2, 2, 4)
+df['sex'].value_counts().plot(kind='pie', autopct='%1.1f%%')
+plt.title('Gender')
 
 plt.tight_layout()
 plt.show()
 
-# 2. Analisis Bivariate
-fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+# 2. Analisis hubungan antar variabel
+plt.figure(figsize=(12, 5))
 
-# Survival rate by Gender
-survival_gender = pd.crosstab(df_filled['sex'], df_filled['survived'], normalize='index') * 100
-survival_gender.plot(kind='bar', ax=axes[0], color=['red', 'green'])
-axes[0].set_title('Survival Rate by Gender')
-axes[0].set_xlabel('Gender')
-axes[0].set_ylabel('Percentage (%)')
-axes[0].legend(['Not Survived', 'Survived'])
-axes[0].set_xticklabels(axes[0].get_xticklabels(), rotation=0)
+# Tingkat selamat berdasarkan gender
+plt.subplot(1, 2, 1)
+survival_gender = pd.crosstab(df['sex'], df['survived'], normalize='index') * 100
+survival_gender.plot(kind='bar', color=['red', 'green'])
+plt.title('Tingkat Selamat per Gender (%)')
+plt.legend(['Tidak', 'Selamat'])
+plt.xticks(rotation=0)
 
-# Survival rate by Class
-survival_class = pd.crosstab(df_filled['class'], df_filled['survived'], normalize='index') * 100
-survival_class.plot(kind='bar', ax=axes[1], color=['red', 'green'])
-axes[1].set_title('Survival Rate by Class')
-axes[1].set_xlabel('Class')
-axes[1].set_ylabel('Percentage (%)')
-axes[1].legend(['Not Survived', 'Survived'])
-axes[1].set_xticklabels(axes[1].get_xticklabels(), rotation=0)
-
-# Age distribution by Survival
-axes[2].hist([df_filled[df_filled['survived']==0]['age'].dropna(), 
-              df_filled[df_filled['survived']==1]['age'].dropna()], 
-             bins=30, label=['Not Survived', 'Survived'], color=['red', 'green'], alpha=0.7)
-axes[2].set_title('Age Distribution by Survival')
-axes[2].set_xlabel('Age')
-axes[2].set_ylabel('Frequency')
-axes[2].legend()
+# Tingkat selamat berdasarkan kelas
+plt.subplot(1, 2, 2)
+survival_class = pd.crosstab(df['class'], df['survived'], normalize='index') * 100
+survival_class.plot(kind='bar', color=['red', 'green'])
+plt.title('Tingkat Selamat per Kelas (%)')
+plt.legend(['Tidak', 'Selamat'])
+plt.xticks(rotation=0)
 
 plt.tight_layout()
 plt.show()
 
 # 3. Correlation Matrix
-numeric_features = df_filled.select_dtypes(include=[np.number])
-correlation_matrix = numeric_features.corr()
+kolom_angka = df.select_dtypes(include=[np.number])
+korelasi = kolom_angka.corr()
 
-plt.figure(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0, fmt='.2f')
-plt.title('Correlation Matrix')
-plt.tight_layout()
+plt.figure(figsize=(8, 6))
+sns.heatmap(korelasi, annot=True, cmap='coolwarm', center=0, fmt='.2f')
+plt.title('Korelasi Antar Variabel')
 plt.show()
 ```
 
 ## 💪 Tugas Praktikum
 
-### Tugas 1: Data Cleaning (30 poin)
+### Tugas 1: Bersihkan Data (40 poin)
 
-Download dataset dari [Kaggle House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data) atau gunakan dataset lain yang memiliki missing values.
+Gunakan dataset 'tips' dari seaborn:
+```python
+df = sns.load_dataset('tips')
+# Atau download dataset lain dari Kaggle
+```
 
 Lakukan:
-1. Load dataset dan tampilkan info dasar (shape, columns, dtypes)
-2. Identifikasi dan visualisasi missing values
-3. Handling missing values dengan 3 strategi berbeda
-4. Identifikasi dan remove duplicates (jika ada)
-5. Dokumentasikan keputusan Anda dalam markdown cell
+1. Tampilkan jumlah data hilang
+2. Isi atau hapus data hilang
+3. Cek dan hapus duplikat
+4. Tunjukkan hasil akhir
 
-### Tugas 2: Outlier Detection dan Handling (25 poin)
+### Tugas 2: Tangani Outliers (30 poin)
 
-Gunakan dataset yang sama:
-1. Pilih minimal 3 kolom numerik
-2. Deteksi outliers menggunakan metode IQR
-3. Visualisasi outliers dengan boxplot (before & after)
-4. Implementasikan 2 metode handling outliers:
-   - Capping/Clipping
-   - Removal
-5. Bandingkan hasil kedua metode dengan visualisasi
+```python
+# 1. Buat boxplot untuk 2 kolom numerik
+# 2. Tangani outliers dengan capping
+# 3. Buat boxplot before & after
+```
 
-### Tugas 3: Normalisasi dan Standardisasi (20 poin)
+### Tugas 3: Eksplorasi Data (30 poin)
 
-1. Pilih 5 kolom numerik dari dataset
-2. Terapkan Min-Max Normalization
-3. Terapkan Standardization
-4. Buat visualisasi perbandingan (histogram atau distribution plot)
-5. Jelaskan kapan menggunakan normalisasi vs standardisasi
+Buat minimal 4 visualisasi:
+1. Histogram untuk 2 kolom numerik
+2. Bar chart untuk 1 kolom kategori
+3. Crosstab untuk analisis hubungan
 
-### Tugas 4: Exploratory Data Analysis (25 poin)
+Tulis 3 insight yang kamu temukan!
 
-Lakukan EDA komprehensif:
-1. **Univariate Analysis**: Buat minimal 4 visualisasi untuk fitur individual
-2. **Bivariate Analysis**: Analisis hubungan antara 2 variabel (minimal 3 pasang)
-3. **Multivariate Analysis**: Buat correlation matrix dan heatmap
-4. **Insights**: Tulis minimal 5 insight/temuan menarik dari data
-5. **Recommendations**: Berikan rekomendasi fitur mana yang penting untuk modeling
+## ✅ Cara Mengumpulkan
 
-## 📤 Cara Mengumpulkan
+Simpan dalam notebook (.ipynb), export ke PDF: `NIM_Nama_Pertemuan02.pdf`
 
-1. Buat notebook Jupyter (.ipynb) dengan struktur yang jelas
-2. Setiap section harus ada penjelasan dalam markdown cell
-3. Pastikan semua visualisasi ter-render dengan baik
-4. Export ke PDF: `NIM_Nama_Pertemuan02.pdf`
-5. Upload ke LMS atau push ke GitHub repository
+## 🔑 Cheat Sheet
 
-## ✅ Kriteria Penilaian
+```python
+# Cek data hilang
+df.isnull().sum()
 
-| Aspek | Bobot |
-|-------|-------|
-| Tugas 1: Data Cleaning | 30% |
-| Tugas 2: Outlier Handling | 25% |
-| Tugas 3: Scaling | 20% |
-| Tugas 4: EDA & Insights | 25% |
-| Kualitas visualisasi | 15% |
-| Dokumentasi & penjelasan | 15% |
-| Kerapihan kode | 10% |
+# Isi data hilang
+df['kolom'].fillna(df['kolom'].median(), inplace=True)
 
-## 📚 Referensi
+# Hapus duplikat
+df = df.drop_duplicates()
 
-1. [Pandas User Guide - Missing Data](https://pandas.pydata.org/docs/user_guide/missing_data.html)
-2. [Scikit-learn Preprocessing](https://scikit-learn.org/stable/modules/preprocessing.html)
-3. [Seaborn Tutorial](https://seaborn.pydata.org/tutorial.html)
-4. [Outlier Detection Methods](https://towardsdatascience.com/ways-to-detect-and-remove-the-outliers-404d16608dba)
+# Normalisasi
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+data_scaled = scaler.fit_transform(df[['kolom']])
 
-## 💡 Tips
-
-1. **Missing Values**: Jangan langsung drop! Pertimbangkan apakah missing itu random atau ada pola
-2. **Outliers**: Tidak semua outliers perlu dihilangkan. Kadang outliers adalah data penting
-3. **Scaling**: Normalisasi untuk algoritma distance-based (KNN), standardisasi untuk algoritma gradient-based (Linear Regression)
-4. **EDA**: Visualisasi adalah kunci untuk memahami data. Jangan skip tahap ini!
+# Boxplot
+plt.boxplot(df['kolom'])
+```
 
 ---
 
-**Happy Data Wrangling! 🧹📊**
+**Selamat Membersihkan Data! 🧹✨**

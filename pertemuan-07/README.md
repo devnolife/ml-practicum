@@ -65,6 +65,18 @@ Setelah menyelesaikan pertemuan ini, mahasiswa diharapkan mampu:
 
 ### Persiapan: Import Library
 
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Import library untuk unsupervised learning - clustering (grouping data tanpa labels)
+> - **Kapan digunakan**: Customer segmentation, anomaly detection, data exploration, pattern discovery
+> - **Penjelasan Library**:
+>   - `KMeans`: Algoritma clustering paling populer (partition-based)
+>   - `AgglomerativeClustering`: Hierarchical clustering (bottom-up approach)
+>   - `silhouette_score`: Metric untuk evaluate clustering quality (-1 to 1, higher better)
+>   - `davies_bouldin_score`: Alternative metric (lower better)
+>   - `dendrogram, linkage`: Visualisasi hierarchical clustering tree
+> - **Perbedaan dengan Supervised Learning**: Tidak ada "target/label" - algorithm cari pattern sendiri!
+> - **Use Cases**: Market segmentation, image compression, recommendation systems
+
 ```python
 import numpy as np
 import pandas as pd
@@ -83,6 +95,23 @@ plt.rcParams['figure.figsize'] = (12, 8)
 ```
 
 ### Langkah 1: K-Means dengan Synthetic Data
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Group data ke K clusters berdasarkan similarity (jarak Euclidean)
+> - **Kapan digunakan**: Customer segmentation, document clustering, image compression
+> - **Cara Kerja K-Means**:
+>   1. Randomly initialize K centroids (pusat cluster)
+>   2. Assign setiap data point ke centroid terdekat
+>   3. Update centroid = rata-rata dari all points dalam cluster
+>   4. Repeat steps 2-3 until convergence (centroids tidak berubah lagi)
+> - **Penjelasan Kode**:
+>   - `make_blobs()`: Generate synthetic data dengan 4 natural clusters
+>   - `KMeans(n_clusters=4)`: Specify jumlah clusters (must know beforehand!)
+>   - `.fit_predict()`: Train model dan return cluster labels
+>   - `model.cluster_centers_`: Koordinat final centroids
+>   - `model.inertia_`: Within-cluster sum of squares (lower = tighter clusters)
+> - **Limitation**: Must specify K beforehand, assume spherical clusters, sensitive to outliers
+> - **Next**: Gunakan Elbow Method atau Silhouette Score untuk find optimal K
 
 ```python
 # Generate synthetic data dengan 4 clusters

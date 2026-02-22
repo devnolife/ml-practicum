@@ -60,6 +60,17 @@ Gini = 1 - Σ(pᵢ)²
 
 ### Persiapan: Import Library
 
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Import library untuk classification tasks dan evaluation metrics
+> - **Kapan digunakan**: Di awal project classification (spam detection, diagnosis penyakit, etc)
+> - **Penjelasan Library**:
+>   - `LogisticRegression`: Algoritma untuk binary/multi-class classification (despite nama "regression")
+>   - `DecisionTreeClassifier`: Tree-based classifier yang mudah di-interpret
+>   - `confusion_matrix`: Matrix untuk visualisasi TP, TN, FP, FN
+>   - `classification_report`: Report lengkap (precision, recall, f1-score per class)
+>   - `roc_curve, auc`: Untuk ROC curve analysis (measure discrimination ability)
+>   - `StandardScaler`: Penting untuk Logistic Regression (scale-sensitive)
+
 ```python
 import numpy as np
 import pandas as pd
@@ -81,6 +92,22 @@ plt.rcParams['figure.figsize'] = (10, 6)
 ```
 
 ### Langkah 1: Binary Classification dengan Logistic Regression
+
+> **💡 Penjelasan Program:**
+> - **Tujuan**: Classify data ke 2 kategori (binary: 0 atau 1, True/False, Spam/Not Spam)
+> - **Kapan digunakan**: Email spam detection, fraud detection, medical diagnosis (sick/healthy)
+> - **Penjelasan Kode**:
+>   - `make_classification()`: Generate synthetic dataset untuk demo classification
+>   - `train_test_split()`: Split data 80% training, 20% testing (validasi performa di unseen data)
+>   - `StandardScaler()`: Normalisasi features (critical untuk Logistic Regression!)
+>   - `.predict_proba()`: Return probabilitas untuk setiap class [prob_class0, prob_class1]
+>   - **Confusion Matrix**: Tabel 2x2 showing TP, TN, FP, FN
+>   - **ROC Curve**: Plot trade-off antara True Positive Rate vs False Positive Rate
+>   - **AUC** (Area Under Curve): 0.5=random classifier, 1.0=perfect classifier
+> - **Metrics Interpretation**:
+>   - **Precision**: "Dari yang saya prediksi positif, berapa yang bener?" (FP dihindari)
+>   - **Recall**: "Dari yang sebenarnya positif, berapa yang berhasil saya detect?" (FN dihindari)
+>   - **F1-Score**: Harmonic mean dari Precision & Recall (balanced metric)
 
 ```python
 # Generate binary classification dataset
